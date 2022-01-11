@@ -10,7 +10,7 @@ export const Column = ({ cards, removeCard }) => {
               card={card}
               key={card.id}
               index={index}
-              removeCard={() => {cards.removeCard(card.id)}}
+              removeCard={removeCard}
             />
           );
         })}

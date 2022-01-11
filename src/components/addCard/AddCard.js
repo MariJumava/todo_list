@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { uniqueId } from "lodash";
 import './AddCard.css';
 
 export const AddCard = ({ addCard }) => {
@@ -6,6 +7,7 @@ export const AddCard = ({ addCard }) => {
 
   const saveCard = () => {
         let card = {
+            id: uniqueId(),
             title: value
     };
     addCard(card);

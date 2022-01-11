@@ -6,7 +6,7 @@ export const App = () => {
   const [cards, setCards] = useState([]);
   
   const removeCard = (id) => {
-    setCards(cards.filter((c) => c.id !== id))
+    setCards(cards.filter((card) => card.id !== id))
   };
 
   const addCard = (card) => {
