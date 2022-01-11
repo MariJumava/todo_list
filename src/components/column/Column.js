@@ -1,20 +1,19 @@
-import {Card} from '../card/Card';
-import './Column.css';
+import { Card } from "../card/Card";
 
-export const Column = ({ cards, removeCard }) => {
+export const Column = ({ cards, removeCard, onToggle }) => {
   return (
-    <div className='column'>
-        {cards.map((card, index) => {
-          return (
-            <Card
-              card={card}
-              key={card.id}
-              index={index}
-              removeCard={removeCard}
-            />
-          );
-        })}
+    <div className="column">
+      {cards.map((card, index) => {
+        return (
+          <Card
+            card={card}
+            key={card.id}
+            index={index}
+            removeCard={removeCard}
+            onChange={onToggle}
+          />
+        );
+      })}
     </div>
   );
 };
-
