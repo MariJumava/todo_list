@@ -1,28 +1,25 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import "./AddCard.css";
+import React, { useState } from 'react';
+import './AddCard.css';
 
-const AddCard = ({ onCreate }) => {
-  const [value, setValue] = useState("");
+export const AddCard = ({ addCard }) => {
+  const [value, setValue] = useState('');
 
-  const sabmitHandler = (event) => {
-    event.preventDefault();
-
-    if (value.trim()) {
-      onCreate(value);
-    }
+  const saveCard = () => {
+        let card = {
+            title: value
+    };
+    addCard(card);
+  }
+  const submitHandler = (event) => {
+    event.preventDefault(); 
   };
+
   return (
-    <form className="addCard" onSabmit={sabmitHandler}>
+    <form className='addCard' onSubmit={submitHandler}>
       <input value={value} onChange={(event) => setValue(event.target.value)} />
-      <button>Add Card</button>
+      <button onClick={saveCard}>Add Card</button>
     </form>
   );
 };
 
-// eslint-disable-next-line react/no-typos
-AddCard.propTypes = {
-  onCreate: PropTypes.func.isRequired,
-};
 
-export default AddCard;

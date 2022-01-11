@@ -1,29 +1,20 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Card from "../card/Card";
-import "./Column.css";
+import {Card} from '../card/Card';
+import './Column.css';
 
-const Column = (props, { removeCard }) => {
+export const Column = ({ cards, removeCard }) => {
   return (
-    <div className="column">
-      <div>
-        {props.todos.map((todo, index) => {
+    <div className='column'>
+        {cards.map((card, index) => {
           return (
             <Card
-              todo={todo}
-              key={todo.id}
+              card={card}
+              key={card.id}
               index={index}
-              removeCard={removeCard}
+              removeCard={() => {cards.removeCard(card.id)}}
             />
           );
         })}
-      </div>
     </div>
   );
 };
 
-Column.propTypes = {
-  todos: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
-
-export default Column;

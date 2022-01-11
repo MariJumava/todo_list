@@ -1,21 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
-import "./Card.css";
+import './Card.css';
 
-const Card = ({ todo, index, id, removeCard }) => {
+export const Card = ({ card, index, removeCard }) => {
   return (
-    <div className="card">
-      <strong>{index + 1}</strong>
+    <div className='card'>
+      <div>{index + 1}</div>
       &nbsp;
-      {todo.title}
-      <button onClick={() => removeCard(todo.id)}>&times;</button>
+      {card.title}
+      <button onClick={removeCard}>&times;</button>
     </div>
   );
 };
 
-Card.propTypes = {
-  todo: PropTypes.object.isRequired,
-  index: PropTypes.number,
-};
-
-export default Card;
