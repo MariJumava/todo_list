@@ -17,3 +17,8 @@ code {
   margin: 0 auto;
   width: 600px;
 }
+
+.text-warning {
+  font-size: 1rem;
+  color: red;
+}

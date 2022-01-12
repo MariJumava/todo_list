@@ -1,13 +1,6 @@
 import "./Card.css";
 
 export const Card = ({ card, index, removeCard, onChange }) => {
-  const styles = {
-    span: {
-      display: "flex",
-      alignItems: "center",
-    },
-  };
-
   const classes = [];
 
   if (card.completed) {
@@ -16,7 +9,7 @@ export const Card = ({ card, index, removeCard, onChange }) => {
 
   return (
     <div className="card">
-      <span className={classes.join(" ")} style={styles.span}>
+      <span className={`card${card.completed && "_completed"}`}>
         <input
           type="checkbox"
           checked={card.completed}

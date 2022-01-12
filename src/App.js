@@ -1,16 +1,27 @@
+import { useState } from "react";
 import { Column } from "./components/column/Column.js";
 import { AddCard } from "./components/addCard/AddCard.js";
-import { useState } from "react";
+import { CreateCard } from "./components/createCard/CreateCard.js";
 
 export const App = () => {
   const [cards, setCards] = useState([]);
+  const [showButton, setShowButton] = useState(true);
+
+  const clickOnShowCardButton = () => {
+    setShowButton(false);
+  };
 
   const removeCard = (id) => {
-    setCards(cards.filter((card) => card.id !== id));
+    setCards((cards) => cards.filter((card) => card.id !== id));
   };
 
   const addCard = (card) => {
     setCards((cards) => [...cards, card]);
+    setShowButton(true);
+  };
+
+  const closeCardModal = () => {
+    setShowButton(true);
   };
 
   const toggleCard = (id) => {
@@ -27,11 +38,15 @@ export const App = () => {
   return (
     <div className="wrapp">
       <h1 className="title">ToDo List</h1>
-      <AddCard addCard={addCard} />
-      {Boolean(cards.length) && cards ? (
+      {showButton ? (
+        <CreateCard onClick={clickOnShowCardButton} />
+      ) : (
+        <AddCard addCard={addCard} closeCardModal={closeCardModal} />
+      )}
+      {cards.length && cards ? (
         <Column cards={cards} removeCard={removeCard} onToggle={toggleCard} />
       ) : (
-        <p>No ToDo</p>
+        <p className="text-warning">No ToDo &#128060;</p>
       )}
     </div>
   );

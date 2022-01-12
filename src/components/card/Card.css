@@ -8,7 +8,13 @@
     margin-bottom: 0.5rem;
 }
 
-.done {
+.card_completed {
+    display: flex;
+    align-items: center;
     text-decoration: line-through;
 }
 
+.cardfalse {
+    display: flex;
+    align-items: center;
+}
