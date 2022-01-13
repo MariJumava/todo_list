@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Column } from './components/column/Column.js';
 import { AddCard } from './components/addCard/AddCard.js';
 import { CreateCard } from './components/createCard/CreateCard.js';
+import { CompletedTodos } from './components/counters/CompletedTodos';
+import { AllTodos } from './components/counters/AllTodos.js';
 
 export const App = () => {
   const [cards, setCards] = useState([]);
@@ -35,14 +37,23 @@ export const App = () => {
     );
   };
 
+  const completedCardsLength = useMemo(
+    () => cards.filter((card) => card.completed)?.length,
+    [cards]
+  );
+
   return (
     <div className="wrapp">
       <h1 className="title">ToDo List</h1>
-      {showButton ? (
-        <CreateCard onClick={clickOnShowCardButton} />
-      ) : (
-        <AddCard addCard={addCard} closeCardModal={closeCardModal} />
-      )}
+      <div className="header-list">
+        {showButton ? (
+          <CreateCard onClick={clickOnShowCardButton} />
+        ) : (
+          <AddCard addCard={addCard} closeCardModal={closeCardModal} />
+        )}
+        <AllTodos cardCount={cards ? cards.length : 0} />
+        <CompletedTodos completedCardsLength={completedCardsLength} />
+      </div>
       {cards && cards.length ? (
         <Column cards={cards} removeCard={removeCard} onToggle={toggleCard} />
       ) : (
