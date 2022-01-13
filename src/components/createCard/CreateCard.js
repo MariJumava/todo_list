@@ -1,5 +1,5 @@
-import React from "react";
-import "./CreateCard.css";
+import React from 'react';
+import './CreateCard.css';
 
 export const CreateCard = ({ onClick }) => {
   return (

@@ -1,4 +1,4 @@
-import { Card } from "../card/Card";
+import { Card } from '../card/Card';
 
 export const Column = ({ cards, removeCard, onToggle }) => {
   return (

@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { uniqueId } from "lodash";
-import "./AddCard.css";
+import React, { useState } from 'react';
+import { uniqueId } from 'lodash';
+import './AddCard.css';
 
 export const AddCard = ({ addCard, closeCardModal }) => {
-  const [value, setValue] = useState("");
-  const [description, setDescription] = useState("");
+  const [value, setValue] = useState('');
+  const [description, setDescription] = useState('');
 
   const saveCard = () => {
     const card = {
@@ -18,7 +18,7 @@ export const AddCard = ({ addCard, closeCardModal }) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    setValue("");
+    setValue('');
   };
 
   return (

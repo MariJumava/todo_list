@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { Column } from "./components/column/Column.js";
-import { AddCard } from "./components/addCard/AddCard.js";
-import { CreateCard } from "./components/createCard/CreateCard.js";
+import { useState } from 'react';
+import { Column } from './components/column/Column.js';
+import { AddCard } from './components/addCard/AddCard.js';
+import { CreateCard } from './components/createCard/CreateCard.js';
 
 export const App = () => {
   const [cards, setCards] = useState([]);
@@ -43,7 +43,7 @@ export const App = () => {
       ) : (
         <AddCard addCard={addCard} closeCardModal={closeCardModal} />
       )}
-      {cards.length && cards ? (
+      {cards && cards.length ? (
         <Column cards={cards} removeCard={removeCard} onToggle={toggleCard} />
       ) : (
         <p className="text-warning">No ToDo &#128060;</p>
