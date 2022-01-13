@@ -1,0 +1,20 @@
+.card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+
+.card_completed {
+    display: flex;
+    align-items: center;
+    text-decoration: line-through;
+}
+
+.cardfalse {
+    display: flex;
+    align-items: center;
+}
