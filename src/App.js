@@ -5,9 +5,7 @@ import { AddCard } from './components/addCard/AddCard.js';
 import { CreateCard } from './components/createCard/CreateCard.js';
 import { CompletedTodos } from './components/counters/AllTodos.js';
 import { AllTodos } from './components/counters/AllTodos.js';
-import {
-  getCardsFailure,
-} from './redux/actions';
+import { getCardsFailure } from './redux/actions';
 import { toggleCard, getCardsAsync, addCardAsyncCall, removeCard } from './redux/thunk.js';
 
 export const App = ({ saveEditedCard, getCards, addCardAsync, removeCard }) => {
@@ -17,13 +15,9 @@ export const App = ({ saveEditedCard, getCards, addCardAsync, removeCard }) => {
   const dispatch = useDispatch();
 
   const saveCard = (title) => {
-    const card = cards.map((card) => {
-          if (card.id === id) {
-            card.completed = !card.completed;
-          }
-          return card;
-    })   
-     card.title = title,
+    const card = cards.map(card => ({...card, completed: card.id === id ? !card.completed : card.completed})),
+
+     card.title = title;
      saveEditedCard(card)
   }
 
@@ -73,8 +67,8 @@ export const App = ({ saveEditedCard, getCards, addCardAsync, removeCard }) => {
     </div>
   );
 };
-
-const mapDispatchToProps = (dispatch) => {
+//export default connect(null, mapDispatchToProps);??? как это переписать???
+export const mapDispatchToProps = (dispatch) => {
   return {
     saveEditedCard: (card) => {
       dispatch(toggleCard (card));
@@ -84,4 +78,4 @@ const mapDispatchToProps = (dispatch) => {
     removeCard: (id) => dispatch(removeCard(id)),
   };
 };  
-export default connect(null, mapDispatchToProps);
+

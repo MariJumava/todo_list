@@ -3,5 +3,6 @@
   "trailingComma": "es5",
   "printWidth": 100,
   "arrowParens": "always",
-  "proseWrap": "preserve"
+  "proseWrap": "preserve",
+  "prettier.singleQuote": true
 }

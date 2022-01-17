@@ -19,7 +19,7 @@ export const toggleCard = (card) => {
       try {
         dispatch(putCard());
   
-        const responce = await axios.put(`http://localhost:3000/cards/${card.id}`, card);
+        const responce = await axios.put(`http://localhost:3004/cards/${card.id}`, card);
   
         if (responce.status === 200) {
           dispatch(putCardSuccess());
@@ -37,7 +37,7 @@ export const getCardsAsync = () => {
     return async (dispatch) => {
       dispatch(getCards());
   
-      const responce = await axios.get("http://localhost:3000/cards");
+      const responce = await axios.get("http://localhost:3004/cards");
   
       if (responce.status === 200) {
         const cards = responce.data;
@@ -53,7 +53,7 @@ export const addCardAsyncCall = (card) => {
       try {
         dispatch(postCard());
   
-        const responce = await axios.post("http://localhost:3000/cards", card);
+        const responce = await axios.post("http://localhost:3004/cards", card);
   
         if (responce.status === 201) {
           postCardSuccess();
@@ -72,7 +72,7 @@ export const removeCard = (id) => {
       try {
         dispatch(deleteCard());
   
-        let responce = await axios.delete(`http://localhost:3000/cards/${id}`);
+        const responce = await axios.delete(`http://localhost:3004/cards/${id}`);
   
         if (responce.status === 200) {
           dispatch(deleteCardSuccess());
