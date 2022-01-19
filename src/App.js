@@ -1,23 +1,17 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 import { Column } from './components/column/Column.js';
 import { AddCard } from './components/addCard/AddCard.js';
 import { CreateCard } from './components/createCard/CreateCard.js';
 import { CompletedTodos } from './components/counters/AllTodos.js';
 import { AllTodos } from './components/counters/AllTodos.js';
-import { getCards,
+import { 
   getCardsSuccess,
-  getCardsFailure,
-  postCard,
   postCardSuccess,
-  postCardFailure,
-  deleteCard,
-  deleteCardFailure,
   deleteCardSuccess,
-  putCard,
   putCardSuccess,
-  putCardFailure, } from './redux/actions';
-  import axios from 'axios';
+  cardFailure, } from './redux/actions';
 //import { toggleCard, getCardsAsync, addCardAsyncCall, removeCard } from './redux/thunk.js';
 
 export const App = () => {
@@ -27,56 +21,46 @@ export const App = () => {
   const dispatch = useDispatch(); 
 
   useEffect(() => {
-    try {
-      getCards();
-    } catch (error) {
-      dispatch(getCardsFailure('ERROR'));
-    }
-  }, [dispatch]);
+      getCardsAsync();
+  }, []);
 
   const getCardsAsync = async () => {
-    dispatch(getCards());
 
     const responce = await axios.get('http://localhost:3000/cards');
 
-    if (responce.status === 200) {
-      const cards = responce.data;
+    if (responce.status === 200 && responce.data) {
       dispatch(getCardsSuccess(cards));
     } else {
-      dispatch(getCardsFailure('ERROR'));
+      dispatch(cardFailure('ERROR'));
     }
   }  
 
   const addCardAsyncCall = async (card) => {
     try {
-      dispatch(postCard());
 
       const responce = await axios.post('http://localhost:3000/cards', card);
 
-      if (responce.status === 201) {
+      if (responce.status === 200) {
         postCardSuccess();
-        await getCardsAsync();
       } else {
-        dispatch(postCardFailure('Oops!'));
+        dispatch(cardFailure('Oops!'));
       }
     } catch (err) {
-      dispatch(postCardFailure('Oops!'));
+      dispatch(cardFailure('Oops!'));
     }
   };
 
   const removeCard = async (id) => {
     try {
-      dispatch(deleteCard());
       const responce = await axios.delete(`http://localhost:3000/cards/${id}`);
 
       if (responce.status === 200) {
         deleteCardSuccess();
-        await getCardsAsync();
       } else {
-        dispatch(deleteCardFailure('Oops!'));
+        dispatch(cardFailure('Oops!'));
       }
     } catch (err) {
-      dispatch(deleteCardFailure('Oops!'));
+      dispatch(cardFailure('Oops!'));
     }
   };
 
@@ -85,30 +69,18 @@ export const App = () => {
     setShowButton(true);
   };
 
-  // const toggleCard = (id) => {
-  //   setCards(
-  //     cards.map(card => {
-  //       if (card.id === id) {
-  //         return {...card, completed: !card.completed};
-  //       }
-  //       return card;
-  //     })
-  //   )  
-  // };
   const toggleCard = async (card) => {
     try {
-      dispatch(putCard());
       const responce = await axios.put(
         `http://localhost:3000/cards/${card.id}`, card);
 
       if (responce.status === 200) {
-        dispatch(putCardSuccess());
-        getCardsAsync()(dispatch);
+        putCardSuccess();
       } else {
-        dispatch(putCardFailure('ERROR'));
+        dispatch(cardFailure('ERROR'));
       }
     } catch (error) {
-      dispatch(putCardFailure('ERROR!'));
+      dispatch(cardFailure('ERROR!'));
     }
   };
 
@@ -138,7 +110,8 @@ export const App = () => {
         <CompletedTodos completedCardsLength={completedCardsLength} />
       </div>
       {cards && cards.length ? (
-        <Column cards={cards} removeCard={removeCard} onToggle={toggleCard} />
+        <Column cards={cards} 
+        removeCard={removeCard} onToggle={toggleCard} />
       ) : (
         <p className="text-warning">No ToDo &#128060;</p>
       )}
