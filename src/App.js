@@ -86,7 +86,7 @@ export const App = () => {
   };
 
   // const toggleCard = (id) => {
-  //   cards(
+  //   setCards(
   //     cards.map(card => {
   //       if (card.id === id) {
   //         return {...card, completed: !card.completed};

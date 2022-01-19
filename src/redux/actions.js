@@ -58,7 +58,7 @@ export const deleteCardFailure = (error) => {
   };
 };
 
-export const putCard = () => {
+export const putCard = (card) => {
     return {
       type: ACTION_TYPES.PUT_CARD_START,
     };
