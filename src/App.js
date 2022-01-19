@@ -5,21 +5,26 @@ import { AddCard } from './components/addCard/AddCard.js';
 import { CreateCard } from './components/createCard/CreateCard.js';
 import { CompletedTodos } from './components/counters/AllTodos.js';
 import { AllTodos } from './components/counters/AllTodos.js';
-import { getCardsFailure } from './redux/actions';
-import { toggleCard, getCardsAsync, addCardAsyncCall, removeCard } from './redux/thunk.js';
+import { getCards,
+  getCardsSuccess,
+  getCardsFailure,
+  postCard,
+  postCardSuccess,
+  postCardFailure,
+  deleteCard,
+  deleteCardFailure,
+  deleteCardSuccess,
+  putCard,
+  putCardSuccess,
+  putCardFailure, } from './redux/actions';
+  import axios from 'axios';
+//import { toggleCard, getCardsAsync, addCardAsyncCall, removeCard } from './redux/thunk.js';
 
-export const App = ({ saveEditedCard, getCards, addCardAsync, removeCard }) => {
+export const App = () => {
   const [showButton, setShowButton] = useState(true);
   const cards = useSelector((state) => state.cards);
 
-  const dispatch = useDispatch();
-
-  const saveCard = (title) => {
-    const card = cards.map(card => ({...card, completed: card.id === id ? !card.completed : card.completed})),
-
-     card.title = title;
-     saveEditedCard(card)
-  }
+  const dispatch = useDispatch(); 
 
   useEffect(() => {
     try {
@@ -27,11 +32,84 @@ export const App = ({ saveEditedCard, getCards, addCardAsync, removeCard }) => {
     } catch (error) {
       dispatch(getCardsFailure('ERROR'));
     }
-  }, []);
+  }, [dispatch]);
+
+  const getCardsAsync = async () => {
+    dispatch(getCards());
+
+    const responce = await axios.get('http://localhost:3000/cards');
+
+    if (responce.status === 200) {
+      const cards = responce.data;
+      dispatch(getCardsSuccess(cards));
+    } else {
+      dispatch(getCardsFailure('ERROR'));
+    }
+  }  
+
+  const addCardAsyncCall = async (card) => {
+    try {
+      dispatch(postCard());
+
+      const responce = await axios.post('http://localhost:3000/cards', card);
+
+      if (responce.status === 201) {
+        postCardSuccess();
+        await getCardsAsync();
+      } else {
+        dispatch(postCardFailure('Oops!'));
+      }
+    } catch (err) {
+      dispatch(postCardFailure('Oops!'));
+    }
+  };
+
+  const removeCard = async (id) => {
+    try {
+      dispatch(deleteCard());
+      const responce = await axios.delete(`http://localhost:3000/cards/${id}`);
+
+      if (responce.status === 200) {
+        deleteCardSuccess();
+        await getCardsAsync();
+      } else {
+        dispatch(deleteCardFailure('Oops!'));
+      }
+    } catch (err) {
+      dispatch(deleteCardFailure('Oops!'));
+    }
+  };
 
   const addCard = async (card) => {
-    await addCardAsync((cards) => [...cards, card]);
+    await addCardAsyncCall((cards) => [...cards, card]);
     setShowButton(true);
+  };
+
+  // const toggleCard = (id) => {
+  //   cards(
+  //     cards.map(card => {
+  //       if (card.id === id) {
+  //         return {...card, completed: !card.completed};
+  //       }
+  //       return card;
+  //     })
+  //   )  
+  // };
+  const toggleCard = async (card) => {
+    try {
+      dispatch(putCard());
+      const responce = await axios.put(
+        `http://localhost:3000/cards/${card.id}`, card);
+
+      if (responce.status === 200) {
+        dispatch(putCardSuccess());
+        getCardsAsync()(dispatch);
+      } else {
+        dispatch(putCardFailure('ERROR'));
+      }
+    } catch (error) {
+      dispatch(putCardFailure('ERROR!'));
+    }
   };
 
   const closeCardModal = () => {
@@ -60,7 +138,7 @@ export const App = ({ saveEditedCard, getCards, addCardAsync, removeCard }) => {
         <CompletedTodos completedCardsLength={completedCardsLength} />
       </div>
       {cards && cards.length ? (
-        <Column cards={cards} removeCard={removeCard} toggleCard={saveCard} />
+        <Column cards={cards} removeCard={removeCard} onToggle={toggleCard} />
       ) : (
         <p className="text-warning">No ToDo &#128060;</p>
       )}
@@ -68,14 +146,14 @@ export const App = ({ saveEditedCard, getCards, addCardAsync, removeCard }) => {
   );
 };
 //export default connect(null, mapDispatchToProps);??? как это переписать???
-export const mapDispatchToProps = (dispatch) => {
-  return {
-    saveEditedCard: (card) => {
-      dispatch(toggleCard (card));
-    },
-    getCards: () => dispatch(getCardsAsync()),
-    addCardAsync: (card) => dispatch(addCardAsyncCall(card)),
-    removeCard: (id) => dispatch(removeCard(id)),
-  };
-};  
+// export const mapDispatchToProps = (dispatch) => {
+//   return {
+//     saveEditedCard: (card) => {
+//       dispatch(toggleCard (card));
+//     },
+//     getCards: () => dispatch(getCardsAsync()),
+//     addCardAsync: (card) => dispatch(addCardAsyncCall(card)),
+//     removeCard: (id) => dispatch(removeCard(id)),
+//   };
+// };  
 
