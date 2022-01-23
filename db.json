@@ -1,14 +1,3 @@
 {
-  "cards": [
-    {
-      "'id'": 1,
-      "title": "tatata",
-      "completed": false
-    },
-    {
-      "'id'": 2,
-      "title": "uiuiuiu",
-      "completed": false
-    }
-  ]
+  "cards": []
 }

@@ -1,89 +1,66 @@
-// import {
-//     getCards,
-//     getCardsSuccess,
-//     getCardsFailure,
-//     postCard,
-//     postCardSuccess,
-//     postCardFailure,
-//     deleteCard,
-//     deleteCardFailure,
-//     deleteCardSuccess,
-//     putCard,
-//     putCardSuccess,
-//     putCardFailure,
-// } from './actions';
-// import axios from 'axios';
+import axios from 'axios';
+import {
+    setCards,
+    postCards,
+    deleteCard,
+    putCard,
+    cardFailure,
+} from './actions';
 
-// export const toggleCard = (card) => {
-//     return async (dispatch) => {
-//       try {
-//         dispatch(putCard());
+export const setCardsAsync = () => {
+    return async (dispatch) => {
   
-//         const responce = await axios.put(`http://localhost:3004/cards/${card.id}`, card);
-  
-//         if (responce.status === 200) {
-//           dispatch(putCardSuccess());
-//           getCardsAsync()(dispatch);
-//         } else {
-//           dispatch(putCardFailure("ERROR"));
-//         }
-//       } catch (error) {
-//         dispatch(putCardFailure("ERROR!"));
-//       }
-//     };
-// };
+      const responce = await axios.get('http://localhost:3000/cards');
+    
+    if (responce.status === 200 && responce.data) {
+      dispatch(setCards(responce.data));
+    } else {
+      dispatch(cardFailure('ERROR'));
+    }
+    };
+};
 
-// export const getCardsAsync = () => {
-//     return async (dispatch) => {
-//       dispatch(getCards());
-  
-//       const responce = await axios.get("http://localhost:3004/cards");
-  
-//       if (responce.status === 200) {
-//         const cards = responce.data;
-//         dispatch(getCardsSuccess(cards));
-//       } else {
-//         dispatch(getCardsFailure("ERROR"));
-//       }
-//     };
-// };
+export const addCardAsyncCall = (card) => {
+    return async (dispatch) => {
+      try {
 
-// export const addCardAsyncCall = (card) => {
-//     return async (dispatch) => {
-//       try {
-//         dispatch(postCard());
-  
-//         const responce = await axios.post("http://localhost:3004/cards", card);
-  
-//         if (responce.status === 201) {
-//           postCardSuccess();
-//           getCardsAsync()(dispatch);
-//         } else {
-//           dispatch(postCardFailure("Oops!"));
-//         }
-//       } catch (err) {
-//         dispatch(postCardFailure("Oops!"));
-//       }
-//     };
-// };
+        const responce = await axios.post("http://localhost:3000/cards", card);
+      if (responce.status === 201) {
+        dispatch(postCards(responce.data));
+      } 
+    } catch (err) {
+      dispatch(cardFailure('Oops!'));
+    }
+    };
+};
 
-// export const removeCard = (id) => {
-//     return async (dispatch) => {
-//       try {
-//         dispatch(deleteCard());
-  
-//         const responce = await axios.delete(`http://localhost:3004/cards/${id}`);
-  
-//         if (responce.status === 200) {
-//           dispatch(deleteCardSuccess());
-//           getCardsAsync()(dispatch);
-//         } else {
-//           dispatch(deleteCardFailure("Oops!"));
-//         }
-//       } catch (err) {
-//         dispatch(deleteCardFailure("Oops!"));
-//       }
-//     };
-// };
+export const removeCard = (id) => {
+    return async (dispatch) => {
+      try {
 
+        const responce = await axios.delete(`http://localhost:3000/cards/${id}`);
+      if (responce.status === 200) {
+        dispatch(deleteCard(id));
+      }
+    } catch (err) {
+      dispatch(cardFailure('Oops!'));
+      }
+    };
+};
+
+export const toggleCard = (card) => {
+    return async (dispatch) => {
+      try {
+
+        const responce = await axios.put(
+            `http://localhost:3000/cards/${card.id}`, card);
+    
+          if (responce.status === 200) {
+            dispatch(putCard(card));
+          } 
+        } catch (error) {
+          dispatch(cardFailure('ERROR!'));
+      }
+    };
+};
 
