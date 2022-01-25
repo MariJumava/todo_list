@@ -1,6 +1,7 @@
 import './Card.css';
 
 export const Card = ({ card, index, removeCard, onChange }) => {
+  
   return (
     <div className='card'>
       <span className={`card${card.completed && '_completed'}`}>
