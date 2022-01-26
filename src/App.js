@@ -45,10 +45,10 @@ const dispatch = useDispatch();
 
   const selectedCards = useMemo(
     () => {
-    if (state === 'completed') {
+    if (state === 'Completed') {
       return cards.filter(card => card.completed)
     }
-    if (state === 'active') {
+    if (state === 'Active') {
       return cards.filter(card => !card.completed)
     }
     return cards

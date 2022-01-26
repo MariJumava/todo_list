@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 export const SelectedCard = ({ setState }) => {
-  const [value, setValue] = useState();
+  const [value, setValue] = useState('');
 
   return (
     <select         
@@ -14,7 +14,6 @@ export const SelectedCard = ({ setState }) => {
     >
       <option>All</option>
       <option >Completed</option>
-      <option>Aсtive</option>
 
     </select>
   )
