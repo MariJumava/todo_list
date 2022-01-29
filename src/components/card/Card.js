@@ -1,13 +1,14 @@
 import './Card.css';
 
 export const Card = ({ card, index, removeCard, onChange }) => {
+  
   return (
-    <div className="card">
+    <div className='card'>
       <span className={`card${card.completed && '_completed'}`}>
         <input
-          type="checkbox"
+          type='checkbox'
           checked={card.completed}
-          onChange={() => onChange(card.id)}
+          onChange={() => onChange(card)}
         />
         <span>{index + 1}</span>
         &nbsp;

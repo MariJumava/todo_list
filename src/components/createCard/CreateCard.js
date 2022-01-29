@@ -3,7 +3,7 @@ import './CreateCard.css';
 
 export const CreateCard = ({ onClick }) => {
   return (
-    <div className="create-card" onClick={onClick}>
+    <div className="card-btn" onClick={onClick}>
       Add Card +
     </div>
   );
