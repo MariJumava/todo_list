@@ -5,18 +5,15 @@ import './AddCard.css';
 export const AddCard = ({ addCard, closeCardModal }) => {
   const [value, setValue] = useState('');
 
-  const saveCard = () => {
+  const submitHandler = (event) => {
+    event.preventDefault();
     const card = {
       id: uniqueId(),
       title: value,
       completed: false,
     };
     addCard(card);
-  };
-
-  const submitHandler = (event) => {
-    event.preventDefault();
-    setValue('');
+    setValue(''); 
   };
 
   return (
@@ -33,7 +30,7 @@ export const AddCard = ({ addCard, closeCardModal }) => {
           value={value}
           onChange={(event) => setValue(event.target.value)}
         />
-        <button className="create-card-save-btn" onClick={saveCard}>
+        <button type="submit" className="create-card-save-btn">
           Save
         </button>
       </form>

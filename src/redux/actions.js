@@ -1,28 +1,30 @@
 import { ACTION_TYPES } from './Consts';
 
-export const getCardsSuccess = (cards) => {
+export const setCards = (cards) => {
   return {
-    type: ACTION_TYPES.GET_CARDS_SUCCESS,
+    type: ACTION_TYPES.SET_CARDS,
     payload: cards,
   };
 };
 
-export const postCardSuccess = (cards) => {
+export const postCards = (card) => {
   return {
-    type: ACTION_TYPES.POST_CARD_SUCCESS,
-    payload: cards,
+    type: ACTION_TYPES.POST_CARD,
+    payload: card,
   };
 };
 
-export const deleteCardSuccess = () => {
+export const deleteCard = (id) => {
   return {
-    type: ACTION_TYPES.DELETE_CARD_SUCCESS,
+    type: ACTION_TYPES.DELETE_CARD,
+    payload: id,
   };
 };
 
-export const putCardSuccess = () => {
+export const putCard = (card) => {
   return {
-    type: ACTION_TYPES.PUT_CARD_SUCCESS,
+    type: ACTION_TYPES.PUT_CARD,
+    payload: card,
   };
 };
   

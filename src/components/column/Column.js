@@ -1,9 +1,9 @@
 import { Card } from '../card/Card';
 
-export const Column = ({ cards, removeCard, onToggle }) => {
+export const Column = ({ selectedCards, removeCard, onToggle }) => {
   return (
     <div className="column">
-      {cards.map((card, index) => {
+      {selectedCards.map((card, index) => {
         return (
           <Card
             card={card}
