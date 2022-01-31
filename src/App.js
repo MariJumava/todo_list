@@ -31,7 +31,6 @@ const dispatch = useDispatch();
   };
 
   const selectedCard = async (card) => {
-    card.completed = !card.completed;
     dispatch(toggleCard(card));
   };
 
