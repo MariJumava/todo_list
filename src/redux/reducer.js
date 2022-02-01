@@ -32,7 +32,7 @@ export const reducer = (state = initialState, action) => {
           cards: state.cards.map(card => {
             if (card.id === action.payload.id) {
               return action.payload
-          }
+            }
           return card
           })
         }

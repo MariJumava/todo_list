@@ -8,7 +8,7 @@ export const Card = ({ card, index, removeCard, onChange }) => {
         <input
           type='checkbox'
           checked={card.completed}
-          onChange={() => onChange(card)}
+          onChange={() => onChange({...card, completed: !card.completed})}
         />
         <span>{index + 1}</span>
         &nbsp;

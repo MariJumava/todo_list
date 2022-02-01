@@ -31,7 +31,6 @@ const dispatch = useDispatch();
   };
 
   const selectedCard = async (card) => {
-    card.completed = !card.completed;
     dispatch(toggleCard(card));
   };
 
@@ -65,23 +64,16 @@ const dispatch = useDispatch();
       <h1 className="title">ToDo List</h1>
       <div className="header-list">
         {showButton ? (
-          <CreateCard 
-          onClick={clickOnShowCardButton} 
-          />
+          <CreateCard onClick={clickOnShowCardButton} />
         ) : (
           <AddCard 
           addCard={addCard} 
           closeCardModal={closeCardModal} 
           />
         )}
-        <AllTodos 
-        cardCount={cards?.length || 0} 
-        />
-        <CompletedTodos 
-        completedCardsLength={completedCardsLength}
-        />
-        <SelectedCard 
-        setState={setState} />
+        <AllTodos cardCount={cards?.length || 0} />
+        <CompletedTodos completedCardsLength={completedCardsLength} />
+        <SelectedCard setState={setState} />
       </div>
       {error}
       {cards && cards.length ? (
