@@ -24,7 +24,7 @@ export const deleteCard = (id) => {
 export const putCard = (card) => {
   return {
     type: ACTION_TYPES.PUT_CARD,
-    payload: card.completed = !card.completed
+    payload: card,
   };
 };
   
